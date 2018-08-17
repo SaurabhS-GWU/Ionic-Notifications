@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+  <ion-slides autoplay="3000" pager>
+  <ion-slide>
+    <img src="../assets/imgs/FDA CTP.png" />
+  </ion-slide>
+  <ion-slide>
+    <img src="../assets/imgs/slide2.png" />
+  </ion-slide>
+  <ion-slide>
+    <h1>All images are used only for demonstration purpose</h1>
+  </ion-slide>
+</ion-slides>
+<button ion-button full (click)="gotoNotifications()">Check Notifications</button>
+
+</ion-content>
