@@ -1,6 +1,6 @@
 {
   "name": "jiraNotifications",
-  "app_id": "",
+  "app_id": "8b4b54a9",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
