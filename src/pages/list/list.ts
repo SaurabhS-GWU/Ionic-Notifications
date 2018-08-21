@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular'; 
+import {Observable} from 'rxjs/Rx';
 import {NotificationServiceProvider} from '../../providers/notification-service/notification-service';
 
 @Component({
@@ -28,10 +29,20 @@ export class ListPage {
   }
 
   ionViewDidLoad(){
-      
+
+     this.loadNotifications(); 
+
+     Observable.interval(1 * 60 * 1000).subscribe(x => {
+            
+         this.loadNotifications();
+    });
+    
+  } 
+
+  loadNotifications(){
       this.notificationProvider.getNotification()
         .subscribe(notification =>{
-         
+          this.items.splice(0);
           this.result = notification;
 
           for (let i = 0; i < this.result.length; i++) {
@@ -44,7 +55,7 @@ export class ListPage {
           }
 
         });
-  } 
+  }
 
   itemTapped(event, item) {
 
