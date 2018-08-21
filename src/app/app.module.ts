@@ -4,7 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import { IonicStorageModule} from '@ionic/storage';
-import {TranslateModule} from 'ng2-translate/ng2-translate';
+
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
