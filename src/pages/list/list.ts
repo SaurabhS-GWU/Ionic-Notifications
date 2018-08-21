@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular'; 
 import {Observable} from 'rxjs/Rx';
+import {ChangeDetectorRef} from '@angular/core';
 import {NotificationServiceProvider} from '../../providers/notification-service/notification-service';
 
 @Component({
@@ -10,11 +11,13 @@ import {NotificationServiceProvider} from '../../providers/notification-service/
 export class ListPage {
   selectedItem: any;
   icons: string[];
-  items: Array<{title: string, note: string, url:string, icon: string}>; 
+  items: any; 
   notification: any; 
   result: any;
+  //interval: Subscription; 
+ // click: Subscription; 
 
-  constructor(public navCtrl: NavController, private notificationProvider: NotificationServiceProvider, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, private cd:ChangeDetectorRef, private notificationProvider: NotificationServiceProvider, public navParams: NavParams) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
 
@@ -22,37 +25,42 @@ export class ListPage {
     this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
     'american-football', 'boat', 'bluetooth', 'build'];
 
-    this.items = [];
+     let TIME_IN_MS = 2000;
+      let hideFooterTimeout = setTimeout( () => {
+         this.loadNotifications();
+     }, TIME_IN_MS);
+    this.result = [];
  
 
 
   }
 
-  ionViewDidLoad(){
 
-     this.loadNotifications(); 
 
-     Observable.interval(1 * 60 * 1000).subscribe(x => {
-            
+  ionViewWillEnter(){
+
+   
+
+      let TIME_IN_MS = 2000;     
+      Observable.interval(1 * 60 * 1000).subscribe(x=> {
+         let hideFooterTimeout = setTimeout( () => {
          this.loadNotifications();
+    }, TIME_IN_MS);
     });
-    
+     
   } 
 
-  loadNotifications(){
-      this.notificationProvider.getNotification()
-        .subscribe(notification =>{
-          this.items.splice(0);
-          this.result = notification;
+  ionViewWillLeave(){
 
-          for (let i = 0; i < this.result.length; i++) {
-              this.items.push({
-              title: this.result[i].title,
-              note: this.result[i].description,
-              url: this.result[i].url,
-              icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-          }); 
-          }
+  }
+
+  loadNotifications(){
+     this.notificationProvider.getNotification()
+        .subscribe(notification =>{
+          this.items = notification;
+      
+          this.cd.detectChanges();
+
 
         });
   }

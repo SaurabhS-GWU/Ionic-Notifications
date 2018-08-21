@@ -12,8 +12,8 @@
     <button ion-item color="light" *ngFor="let item of items" (click)="itemTapped($event, item)">
       
       <h2><b>{{item.title}}</b></h2>
-      <p>{{item.note}}</p>
-      <p item-end>11:45pm</p>
+      <p>{{item.description}}</p>  
+      <p item-end>{{item.updated}}</p>
     </button>
   </ion-list>
   <div *ngIf="selectedItem" padding>
